@@ -1,32 +1,22 @@
-first_num = int(input("Enter first number: "))
-second_num = int(input("Enter second number: "))
+def sumDigits(n):
+    """
+    Computes the sum of the digits in an integer.
 
-total = first_num + second_num
+    Args:
+        n: The integer.
 
-print(total)
-    
-option = input('Do you wish to continue. Enter yes or no: ')
+    Returns:
+        The sum of the digits in the integer.
+    """
 
-option = option.lower()
+    if n < 0:
+        n = -n  # Handle negative numbers
 
+    total = 0
+    while n > 0:
+        total += n % 10  # Add the last digit to the total
+        n //= 10  # Remove the last digit from the number
 
-while True:
+    return total
 
-    if option == 'yes':
-        first_num = int(input("Enter first number: "))
-        second_num = int(input("Enter second number: "))
-
-        total = (first_num + second_num)
-
-        print(total)
-
-    elif option == 'no':
-        break
-
-    else:
-        print('Invalid option')
-        break
-
-
-
-
+print(sumDigits(n=278))
