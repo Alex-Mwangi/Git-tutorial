@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malware Detection and Analysis Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #1E2A38;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 36px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .upload-section, .results-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .upload-section h2, .results-section h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .upload-section input[type="file"] {
+            margin: 15px 0;
+            padding: 10px;
+            width: 100%;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .upload-section button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .upload-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .status {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .status.danger {
+            color: #FF5733;
+        }
+
+        .status.warning {
+            color: #FFC107;
+        }
+
+        .status.safe {
+            color: #28A745;
+        }
+
+        .result-item {
+            margin-bottom: 15px;
+        }
+
+        .result-item p {
+            font-size: 16px;
+        }
+
+        .result-item span {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f1f1f1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #1E2A38;
+            color: #fff;
+            margin-top: 40px;
+        }
+
+        .charts-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .chart {
+            width: 45%;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Malware Detection and Analysis Dashboard</h1>
+</header>
+
+<div class="container">
+
+    <!-- File Upload Section -->
+    <section class="upload-section">
+        <h2>Upload a File for Analysis</h2>
+        <input type="file" id="fileInput" />
+        <button onclick="uploadFile()">Upload</button>
+    </section>
+
+    <!-- Results Section (Initially Hidden) -->
+    <section class="results-section" id="resultsSection" style="display:none;">
+        <h2>Analysis Results for <span id="fileName"></span></h2>
+
+        <div class="result-item">
+            <p><span>Threat Score:</span> <span id="threatScore"></span></p>
+            <div id="status" class="status"></div>
+        </div>
+
+        <div class="charts-container">
+            <div class="chart">
+                <canvas id="threatScoreChart"></canvas>
+            </div>
+            <div class="chart">
+                <canvas id="apiChart"></canvas>
+            </div>
+        </div>
+
+        <div class="result-item">
+            <p><span>Static Analysis:</span></p>
+            <table class="table">
+                <tr><th>Sections</th><td id="sections"></td></tr>
+                <tr><th>Suspicious APIs</th><td id="suspiciousApis"></td></tr>
+            </table>
+        </div>
+
+        <div class="result-item">
+            <p><span>Dynamic Analysis:</span></p>
+            <table class="table">
+                <tr><th>Network Traffic</th><td id="networkTraffic"></td></tr>
+                <tr><th>Registry Changes</th><td id="registryChanges"></td></tr>
+            </table>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 Malware Analysis System. All Rights Reserved.</p>
+</footer>
+
+<script>
+    function uploadFile() {
+        const file = document.getElementById('fileInput').files[0];
+        
+        if (file) {
+            // Simulate file upload and analysis result
+            const results = {
+                file_name: file.name,
+                threat_score: 7,  // Sample threat score
+                static_analysis: {
+                    sections: ['.text', '.rdata', '.data'],
+                    suspicious_apis: ['CreateRemoteThread', 'OpenProcess']
+                },
+                dynamic_analysis: {
+                    network_traffic: ['malicious-site.com'],
+                    registry_changes: ['HKEY_LOCAL_MACHINE\\SOFTWARE\\Malware']
+                }
+            };
+
+            // Populate results
+            document.getElementById('fileName').textContent = results.file_name;
+            document.getElementById('threatScore').textContent = results.threat_score;
+
+            let status = document.getElementById('status');
+            if (results.threat_score >= 8) {
+                status.textContent = 'Dangerous';
+                status.classList.add('danger');
+            } else if (results.threat_score >= 4) {
+                status.textContent = 'Suspicious';
+                status.classList.add('warning');
+            } else {
+                status.textContent = 'Safe';
+                status.classList.add('safe');
+            }
+
+            document.getElementById('sections').textContent = results.static_analysis.sections.join(', ');
+            document.getElementById('suspiciousApis').textContent = results.static_analysis.suspicious_apis.join(', ');
+            document.getElementById('networkTraffic').textContent = results.dynamic_analysis.network_traffic.join(', ');
+            document.getElementById('registryChanges').textContent = results.dynamic_analysis.registry_changes.join(', ');
+
+            // Display the results section
+            document.getElementById('resultsSection').style.display = 'block';
+
+            // Update Charts
+            updateCharts(results.threat_score, results.static_analysis.suspicious_apis.length);
+        } else {
+            alert('Please select a file.');
+        }
+    }
+
+    function updateCharts(threatScore, suspiciousApiCount) {
+        // Threat Score Chart (Donut)
+        var ctx1 = document.getElementById('threatScoreChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: ['Safe', 'Suspicious', 'Dangerous'],
+                datasets: [{
+                    data: [10 - threatScore, threatScore - 4, threatScore >= 8 ? 1 : 0],
+                    backgroundColor: ['#28A745', '#FFC107', '#FF5733'],
+                    borderColor: ['#28A745', '#FFC107', '#FF5733'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                cutoutPercentage: 70,
+                legend: {
+                    position: 'top',
+                },
+                animation: {
+                    animateScale: true,
+                }
+            }
+        });
+
+        // Suspicious APIs Chart (Bar)
+        var ctx2 = document.getElementById('apiChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Suspicious APIs'],
+                datasets: [{
+                    label: 'Number of Suspicious APIs',
+                    data: [suspiciousApiCount],
+                    backgroundColor: '#FFC107',
+                    borderColor: '#FFC107',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
