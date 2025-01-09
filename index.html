@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Malware Analysis Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <h1>Malware Analysis System</h1>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Reports</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- File Upload Section -->
+            <section class="upload-section">
+                <h2><i class="fas fa-upload"></i> Upload Malware File</h2>
+                <div class="upload-box">
+                    <input type="file" id="file-upload" accept=".exe,.dll,.zip" hidden>
+                    <label for="file-upload" class="upload-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Choose File</span>
+                    </label>
+                    <button class="analyze-button"><i class="fas fa-search"></i> Analyze</button>
+                </div>
+            </section>
+
+            <!-- Analysis Results Section -->
+            <section class="results-section">
+                <h2><i class="fas fa-chart-bar"></i> Analysis Results</h2>
+                <div class="results-box">
+                    <p>No file analyzed yet.</p>
+                </div>
+            </section>
+
+            <!-- Threat Statistics Section -->
+            <section class="stats-section">
+                <h2><i class="fas fa-shield-alt"></i> Threat Statistics</h2>
+                <div class="stats-box">
+                    <div class="stat-item">
+                        <h3>Total Files Analyzed</h3>
+                        <p>1,234</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Malicious Files Detected</h3>
+                        <p>456</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Clean Files</h3>
+                        <p>778</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activities Section -->
+            <section class="activities-section">
+                <h2><i class="fas fa-history"></i> Recent Activities</h2>
+                <div class="activities-box">
+                    <ul>
+                        <li><i class="fas fa-file"></i> File "malware.exe" analyzed - <span class="malicious">Malicious</span></li>
+                        <li><i class="fas fa-file"></i> File "clean.zip" analyzed - <span class="clean">Clean</span></li>
+                        <li><i class="fas fa-file"></i> File "trojan.dll" analyzed - <span class="malicious">Malicious</span></li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2023 Malware Analysis System. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
