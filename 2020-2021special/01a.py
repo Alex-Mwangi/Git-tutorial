@@ -1,11 +1,26 @@
 
-width = 17
-height = 12.0
 
-width1 = width//2
-width2 = width/2.0
-height1 = height/3
+try:
+    filename = input('Enter the file name: ')
+    with open(filename, 'r') as file:
+          myfile= file.read()
+          print(myfile)
 
-print(width1) # 8
-print(width2) # 8.5
-print(height1) # 4.0
+          wrd = myfile.split()
+          print(wrd)
+
+
+          words = {}
+          
+          for word in wrd:
+                if word in words:
+                      words[word] += 1
+                else:
+                      words[word] = 1
+          for i, j in words.items():
+                print(i, ": ", j)
+
+                
+
+except FileNotFoundError:
+        print('File not found')
