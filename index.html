@@ -3,84 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Malware Analysis Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Malware Analysis Sandbox</title>
 </head>
 <body>
-    <div class="dashboard">
-        <!-- Header -->
-        <header class="header">
-            <h1>Malware Analysis System</h1>
-            <nav>
-                <ul>
-                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#"><i class="fas fa-file-alt"></i> Reports</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
-                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-                </ul>
-            </nav>
-        </header>
+    <h1>Malware Analysis Sandbox</h1>
+    <p>Upload a file to analyze:</p>
+    <input type="file" id="fileInput">
+    <button onclick="analyzeFile()">Analyze File</button>
+    <div id="results"></div>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- File Upload Section -->
-            <section class="upload-section">
-                <h2><i class="fas fa-upload"></i> Upload Malware File</h2>
-                <div class="upload-box">
-                    <input type="file" id="file-upload" accept=".exe,.dll,.zip" hidden>
-                    <label for="file-upload" class="upload-label">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <span>Choose File</span>
-                    </label>
-                    <button class="analyze-button"><i class="fas fa-search"></i> Analyze</button>
-                </div>
-            </section>
+    <script>
+        function analyzeFile() {
+            const fileInput = document.getElementById('fileInput').files[0];
+            if (!fileInput) {
+                document.getElementById('results').innerText = "Please select a file.";
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const fileContent = e.target.result;
+                document.getElementById('results').innerText = "Analyzing file...\n";
 
-            <!-- Analysis Results Section -->
-            <section class="results-section">
-                <h2><i class="fas fa-chart-bar"></i> Analysis Results</h2>
-                <div class="results-box">
-                    <p>No file analyzed yet.</p>
-                </div>
-            </section>
+                // Basic heuristic check for suspicious patterns
+                const suspiciousPatterns = ["eval(", "shell_exec", "system(", "base64_decode"];
+                let result = "No suspicious content found.";
+                for (let pattern of suspiciousPatterns) {
+                    if (fileContent.includes(pattern)) {
+                        result = "Warning: Suspicious content detected! Pattern: " + pattern;
+                        break;
+                    }
+                }
+                document.getElementById('results').innerText += result;
+            };
+            reader.readAsText(fileInput);
+        }
+    </script>
 
-            <!-- Threat Statistics Section -->
-            <section class="stats-section">
-                <h2><i class="fas fa-shield-alt"></i> Threat Statistics</h2>
-                <div class="stats-box">
-                    <div class="stat-item">
-                        <h3>Total Files Analyzed</h3>
-                        <p>1,234</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>Malicious Files Detected</h3>
-                        <p>456</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>Clean Files</h3>
-                        <p>778</p>
-                    </div>
-                </div>
-            </section>
+    <!-- Embedded C code for execution monitoring (conceptual) -->
+    <pre>
+/*
+#include <stdio.h>
+#include <stdlib.h>
 
-            <!-- Recent Activities Section -->
-            <section class="activities-section">
-                <h2><i class="fas fa-history"></i> Recent Activities</h2>
-                <div class="activities-box">
-                    <ul>
-                        <li><i class="fas fa-file"></i> File "malware.exe" analyzed - <span class="malicious">Malicious</span></li>
-                        <li><i class="fas fa-file"></i> File "clean.zip" analyzed - <span class="clean">Clean</span></li>
-                        <li><i class="fas fa-file"></i> File "trojan.dll" analyzed - <span class="malicious">Malicious</span></li>
-                    </ul>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>&copy; 2023 Malware Analysis System. All rights reserved.</p>
-        </footer>
-    </div>
+int main() {
+    printf("Sandbox C Monitoring Tool\n");
+    // Example monitoring logic: track memory and process usage (simplified)
+    printf("Monitoring process...\n");
+    // Actual code would interact with OS-level APIs
+    return 0;
+}
+*/
+    </pre>
 </body>
 </html>

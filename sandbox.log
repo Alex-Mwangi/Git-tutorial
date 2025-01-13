@@ -1,0 +1,6 @@
+2025-01-14 01:03:22,450 - INFO - Created sandbox directory: /tmp/tmptkye0_kg
+2025-01-14 01:03:22,450 - ERROR - Analysis failed: [Errno 2] No such file or directory: '/path/to/suspicious_file'
+2025-01-14 01:03:22,451 - INFO - Sandbox directory removed.
+2025-01-14 01:03:27,566 - INFO - Created sandbox directory: /tmp/tmpqd5kfypi
+2025-01-14 01:03:27,566 - ERROR - Analysis failed: [Errno 2] No such file or directory: '/path/to/suspicious_file'
+2025-01-14 01:03:27,566 - INFO - Sandbox directory removed.

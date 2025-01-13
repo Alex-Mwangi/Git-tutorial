@@ -11,3 +11,8 @@ class Person:
 
 p1 = Person('Alex', 30)
 print(p1)
+
+class Student(Person):
+
+    def __init__(self, name, age, regno):
+        super().__init__(name, age)
